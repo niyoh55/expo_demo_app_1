@@ -45,7 +45,8 @@ export default function Home() {
             key={account.title}
             title={account.title}
             amount={account.amount}
-            onPress={() => alert('ambatubust')}
+            onCardPress={() => alert('card tocuhed')}
+            onPress={() => alert('imma buss')}
           />
         ))}
         <AddButton onPress={showModal} />
