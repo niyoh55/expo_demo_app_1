@@ -33,8 +33,8 @@ export const RecordCard = ({
             height: 8,
           },
           shadowOpacity: 0.46,
-          shadowRadius: 11.14,
-          elevation: 17,
+          shadowRadius: 10,
+          elevation: 5,
           borderRadius: 10,
         }}
       />

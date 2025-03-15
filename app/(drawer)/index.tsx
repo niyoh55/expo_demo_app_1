@@ -2,6 +2,7 @@ import { Stack } from 'expo-router';
 import { useState } from 'react';
 import { View, Text } from 'react-native';
 import { Button, Modal, TextInput } from 'react-native-paper';
+import Animated, { BounceInRight } from 'react-native-reanimated';
 
 import { AddButton } from '~/components/AddButton';
 import { RecordCard } from '~/components/RecordCard';
@@ -40,16 +41,27 @@ export default function Home() {
       <View className="flex-1 gap-y-5 px-5 pt-5">
         <Text className="text-3xl font-semibold">Good day,</Text>
         {/* <ScreenContent path="app/(drawer)/index.tsx" title="Home" /> */}
-        {currentAccounts?.map((account) => (
-          <RecordCard
-            key={account.title}
-            title={account.title}
-            amount={account.amount}
-            onCardPress={() => alert('card tocuhed')}
-            onPress={() => alert('imma buss')}
-          />
-        ))}
-        <AddButton onPress={showModal} />
+        <Animated.FlatList
+          data={currentAccounts}
+          keyExtractor={(item) => item.title}
+          contentContainerStyle={{ marginTop: 5 }}
+          renderItem={({ item }) => (
+            <Animated.View
+              entering={BounceInRight.duration(600).delay(200)}
+              style={{
+                borderRadius: 10,
+                marginVertical: 5,
+              }}>
+              <RecordCard
+                key={item.title}
+                title={item.title}
+                amount={item.amount}
+                onCardPress={() => alert('card tocuhed')}
+                onPress={() => alert('imma buss')}
+              />
+            </Animated.View>
+          )}
+        />
 
         <Modal
           visible={modalVisible}
@@ -80,6 +92,7 @@ export default function Home() {
             <Button onPress={hideModal}>Cancel</Button>
           </View>
         </Modal>
+        <AddButton onPress={showModal} />
       </View>
     </>
   );
