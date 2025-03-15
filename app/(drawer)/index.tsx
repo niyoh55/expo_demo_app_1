@@ -1,8 +1,14 @@
 import { Stack } from 'expo-router';
 import { useState } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, FlatList } from 'react-native';
 import { Button, Modal, TextInput } from 'react-native-paper';
-import Animated, { BounceInRight } from 'react-native-reanimated';
+import Animated, {
+  BounceInRight,
+  BounceOutLeft,
+  LinearTransition,
+  ReduceMotion,
+  SequencedTransition,
+} from 'react-native-reanimated';
 
 import { AddButton } from '~/components/AddButton';
 import { RecordCard } from '~/components/RecordCard';
@@ -28,10 +34,14 @@ export default function Home() {
 
   const currentAccounts = useSavingsStore((state) => state.currentAccounts);
 
-  const addAccount = useSavingsStore((state) => state.addAccount);
+  const { addAccount, deleteAccount } = useSavingsStore((state) => state);
 
   const addAccountHandler = () => {
-    addAccount({ title: titleInput, amount: Number(amountInput) });
+    addAccount({
+      title: titleInput,
+      amount: Number(amountInput),
+      id: `${titleInput}${Math.random()}`,
+    });
     hideModal();
   };
 
@@ -41,23 +51,29 @@ export default function Home() {
       <View className="flex-1 gap-y-5 px-5 pt-5">
         <Text className="text-3xl font-semibold">Good day,</Text>
         {/* <ScreenContent path="app/(drawer)/index.tsx" title="Home" /> */}
-        <Animated.FlatList
+        <FlatList
           data={currentAccounts}
           keyExtractor={(item) => item.title}
           contentContainerStyle={{ marginTop: 5 }}
           renderItem={({ item }) => (
             <Animated.View
               entering={BounceInRight.duration(600).delay(200)}
+              exiting={BounceOutLeft.duration(600).delay(200)}
+              layout={SequencedTransition.duration(500)
+                .delay(200)
+                .reverse()
+                .reduceMotion(ReduceMotion.Never)}
               style={{
                 borderRadius: 10,
                 marginVertical: 5,
+                zIndex: 1,
               }}>
               <RecordCard
-                key={item.title}
+                key={item.id}
                 title={item.title}
                 amount={item.amount}
                 onCardPress={() => alert('card tocuhed')}
-                onPress={() => alert('imma buss')}
+                onPress={() => deleteAccount(item.id)}
               />
             </Animated.View>
           )}

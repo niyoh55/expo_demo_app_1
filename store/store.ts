@@ -5,8 +5,9 @@ export interface BearState {
   increasePopulation: () => void;
   removeAllBears: () => void;
   updateBears: (newBears: number) => void;
-  currentAccounts: { title: string; amount: number }[];
-  addAccount: (newAccount: { title: string; amount: number }) => void;
+  currentAccounts: { title: string; amount: number; id: string }[];
+  addAccount: (newAccount: { title: string; amount: number; id: string }) => void;
+  deleteAccount: (id: string) => void;
 }
 
 export const useSavingsStore = create<BearState>((set) => ({
@@ -17,4 +18,8 @@ export const useSavingsStore = create<BearState>((set) => ({
   updateBears: (newBears) => set({ bears: newBears }),
   addAccount: (newAccount) =>
     set((state) => ({ currentAccounts: [newAccount, ...state.currentAccounts] })),
+  deleteAccount: (id) =>
+    set((state) => ({
+      currentAccounts: state.currentAccounts.filter((account) => account.id !== id),
+    })),
 }));
