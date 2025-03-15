@@ -1,11 +1,19 @@
 import React from 'react';
 import { Avatar, Card, IconButton } from 'react-native-paper';
 
-export const RecordCard = ({ onPress, title, subtitle }: { onPress: () => void, title: string, subtitle: string}  ) => {
+export const RecordCard = ({
+  onPress,
+  title,
+  amount,
+}: {
+  onPress: () => void;
+  title: string;
+  amount: number;
+}) => {
   return (
     <Card.Title
       title={title}
-      subtitle={subtitle}
+      subtitle={`\u20B1${amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`}
       left={(props) => <Avatar.Icon {...props} icon="calculator" />}
       right={(props) => <IconButton {...props} icon="dots-vertical" onPress={onPress} />}
       style={{
@@ -18,7 +26,7 @@ export const RecordCard = ({ onPress, title, subtitle }: { onPress: () => void, 
         shadowOpacity: 0.46,
         shadowRadius: 11.14,
         elevation: 17,
-        borderRadius: 10
+        borderRadius: 10,
       }}
     />
   );

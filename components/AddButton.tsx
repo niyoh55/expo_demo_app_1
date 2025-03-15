@@ -1,6 +1,7 @@
-import React from 'react';
-import { Text } from 'react-native';
-import { FAB, Modal} from 'react-native-paper';
+import React, { useState } from 'react';
+import { Text, View } from 'react-native';
+import { FAB, Modal, TextInput } from 'react-native-paper';
+import { Button } from './Button';
 
 export const AddButton = ({ onPress }: { onPress: () => void }) => {
   return (
@@ -11,21 +12,6 @@ export const AddButton = ({ onPress }: { onPress: () => void }) => {
         onPress={onPress}
         rippleColor="rgba(255, 255, 255, 0.4)" // Customize ripple color and opacity
       />
-      <Modal
-        visible={modalVisible}
-        onDismiss={hideModal}
-        contentContainerStyle={tw`bg-white p-4 mx-4 rounded-lg`}
-        >
-        <Text className="text-2xl">Add Item</Text>
-        <TextInput label="Input 1" value={input1} onChangeText={setInput1} style={tw`mb-2`} />
-        <TextInput label="Input 2" value={input2} onChangeText={setInput2} style={tw`mb-4`} />
-        <View style={tw`flex-row justify-end`}>
-          <Button onPress={hideModal} style={tw`mr-2`}>
-            Cancel
-          </Button>
-          <Button onPress={handleAdd}>Add</Button>
-        </View>
-      </Modal>
     </>
   );
 };
