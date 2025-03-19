@@ -1,7 +1,8 @@
-import { useRouter } from 'expo-router';
+import { Stack, useRouter } from 'expo-router';
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { Button } from 'react-native-paper';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { Button, Icon } from 'react-native-paper';
+import { ScreenStackHeaderBackButtonImage } from 'react-native-screens';
 
 const DetailsScreen = () => {
   const router = useRouter();
@@ -12,10 +13,12 @@ const DetailsScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Details Screen</Text>
-      <Button onPress={goBack}>navigateToDetails</Button>
-    </View>
+    <>
+      <View style={styles.container}>
+        <Text style={styles.text}>Details Screen</Text>
+        <Button onPress={goBack}>navigateToDetails</Button>
+      </View>
+    </>
   );
 };
 

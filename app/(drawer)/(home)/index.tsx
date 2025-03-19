@@ -59,7 +59,6 @@ export default function Home() {
   };
   return (
     <>
-      <Stack.Screen options={{ title: 'Home' }} />
       <View className="flex-1 gap-y-5 px-5 pt-5">
         <Text className="text-3xl font-semibold">Good day,</Text>
         <Button onPress={navigateToDetails}>navigateToDetails</Button>
