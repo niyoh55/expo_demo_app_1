@@ -12,6 +12,7 @@ export default function HomeLayout() {
       initialRouteName="index"
       screenOptions={({ route, navigation }) => {
         return {
+          animation: 'slide_from_right',
           headerShown: true,
           headerLeft: () => {
             if (route.name === 'index') {
