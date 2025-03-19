@@ -1,4 +1,6 @@
-import { Stack } from 'expo-router';
+import { DrawerActions } from '@react-navigation/native';
+import { Link, Stack, useRouter } from 'expo-router';
+import { navigate } from 'expo-router/build/global-state/routing';
 import { useState } from 'react';
 import { View, Text, FlatList } from 'react-native';
 import { Button, Modal, TextInput } from 'react-native-paper';
@@ -15,6 +17,8 @@ import { RecordCard } from '~/components/RecordCard';
 import { useSavingsStore } from '~/store/store';
 
 export default function Home() {
+  const router = useRouter();
+
   const [modalVisible, setModalVisible] = useState(false);
   const [titleInput, setTitleInput] = useState('');
   const [amountInput, setAmountInput] = useState('');
@@ -45,11 +49,20 @@ export default function Home() {
     hideModal();
   };
 
+  const navigateToDetails = () => {
+    // Navigate to the details screen
+    router.push('/details');
+  };
+
+  const openDrawer = () => {
+    DrawerActions.openDrawer();
+  };
   return (
     <>
       <Stack.Screen options={{ title: 'Home' }} />
       <View className="flex-1 gap-y-5 px-5 pt-5">
         <Text className="text-3xl font-semibold">Good day,</Text>
+        <Button onPress={navigateToDetails}>navigateToDetails</Button>
         {/* <ScreenContent path="app/(drawer)/index.tsx" title="Home" /> */}
         <FlatList
           data={currentAccounts}
@@ -72,7 +85,7 @@ export default function Home() {
                 key={item.id}
                 title={item.title}
                 amount={item.amount}
-                onCardPress={() => alert('card tocuhed')}
+                onCardPress={navigateToDetails}
                 onPress={() => deleteAccount(item.id)}
               />
             </Animated.View>
