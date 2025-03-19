@@ -49,19 +49,21 @@ export default function Home() {
     hideModal();
   };
 
-  const navigateToDetails = () => {
-    // Navigate to the details screen
-    router.push('/details');
+  const navigateToDetails = (params: any) => {
+    router.push({
+      pathname: '/details',
+      params: { ...params },
+    });
   };
 
   const openDrawer = () => {
     DrawerActions.openDrawer();
   };
+
   return (
     <>
       <View className="flex-1 gap-y-5 px-5 pt-5">
         <Text className="text-3xl font-semibold">Good day,</Text>
-        <Button onPress={navigateToDetails}>navigateToDetails</Button>
         {/* <ScreenContent path="app/(drawer)/index.tsx" title="Home" /> */}
         <FlatList
           data={currentAccounts}
@@ -69,8 +71,8 @@ export default function Home() {
           contentContainerStyle={{ marginTop: 5 }}
           renderItem={({ item }) => (
             <Animated.View
-              entering={BounceInRight.duration(600).delay(200)}
-              exiting={BounceOutLeft.duration(600).delay(200)}
+              entering={BounceInRight.duration(300).delay(200)}
+              exiting={BounceOutLeft.duration(300).delay(200)}
               layout={SequencedTransition.duration(500)
                 .delay(200)
                 .reverse()
@@ -84,7 +86,9 @@ export default function Home() {
                 key={item.id}
                 title={item.title}
                 amount={item.amount}
-                onCardPress={navigateToDetails}
+                onCardPress={() =>
+                  navigateToDetails({ id: item.id, name: item.title, amount: item.amount })
+                }
                 onPress={() => deleteAccount(item.id)}
               />
             </Animated.View>
