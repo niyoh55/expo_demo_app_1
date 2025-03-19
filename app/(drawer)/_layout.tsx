@@ -6,12 +6,25 @@ import { HeaderButton } from '../../components/HeaderButton';
 
 const DrawerLayout = () => {
   return (
-    <Drawer>
+    <Drawer
+      screenOptions={{
+        drawerStyle: {
+          backgroundColor: '#1E1E2F',
+          width: 240,
+        },
+        drawerLabelStyle: {
+          color: '#F5F5F5',
+          fontSize: 16,
+        },
+        drawerActiveTintColor: '#FFFFFF',
+        drawerActiveBackgroundColor: '#333',
+      }}>
       <Drawer.Screen
-        name="index"
+        name="(home)"
         options={{
           headerTitle: 'Home',
           drawerLabel: 'Home',
+          headerShown: false,
           drawerIcon: ({ size, color }) => (
             <Ionicons name="home-outline" size={size} color={color} />
           ),
